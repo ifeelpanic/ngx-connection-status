@@ -1,0 +1,7 @@
+{
+  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../dist/ngx-connection-status",
+  "lib": {
+    "entryFile": "src/public_api.ts"
+  }
+}
