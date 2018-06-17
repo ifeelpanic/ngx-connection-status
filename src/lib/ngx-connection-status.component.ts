@@ -1,16 +1,25 @@
 import { Component, OnInit } from '@angular/core';
+import { NgxConnectionStatusService } from './services/ngx-connection-status.service';
 
 @Component({
   selector: 'ngx-connection-status',
   templateUrl: './ngx-connection-status.component.html',
-  // template: `<div style="height: 20px; background-color: #0f0"></div>`,
   styles: []
 })
 export class NgxConnectionStatusComponent implements OnInit {
 
-  constructor() { }
+  text: string;
+
+  constructor(private cs: NgxConnectionStatusService) { }
 
   ngOnInit() {
+    this.cs.statusHook().subscribe(isOnline => {
+      if (isOnline) {
+        this.text = 'online';
+      } else {
+        this.text = 'offline';
+      }
+    });
   }
 
 }
