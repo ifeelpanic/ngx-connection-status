@@ -1,0 +1,63 @@
+.connection-status_container {
+  width: 100%;
+  clear: both;
+  position: relative;
+  color: #fff;
+  transition: background-color linear .3s;
+  z-index: 2000;
+}
+
+.connection-status_online, .connection-status_offline {
+  padding: .5rem;
+}
+
+.connection-status_online {
+  background-color: #32E259;
+  animation-name: reconnected;
+  animation-delay: 3s;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+.connection-status_offline {
+  background-color: #E23237;
+}
+
+@keyframes reconnected {
+  from {
+    opacity: 1;
+  } to {
+    opacity: 0;
+    display: none;
+  }
+}
+
+.tl, .tr, .bl, .br {
+  position: fixed;
+  width: auto;
+}
+
+.tl > div, .tr > div, .bl > div, .br > div {
+  border-radius: 2px;
+  box-shadow: 0px 3px 7px 1px rgba(0,0,0,.3);
+}
+
+.tl {
+  top: 10px;
+  left: 10px;
+}
+
+.tr {
+  top: 10px;
+  right: 10px;
+}
+
+.bl {
+  bottom: 10px;
+  left: 10px;
+}
+
+.br {
+  bottom: 10px;
+  right: 10px;
+}

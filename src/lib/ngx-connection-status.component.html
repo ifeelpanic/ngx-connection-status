@@ -1,1 +1,8 @@
-{{text}}
+<div class="connection-status_container">
+  <div *ngIf="isOnline && !fresh" class="connection-status_online">
+    <span><i class="fas fa-check-circle"></i> You have been reconnected</span>
+  </div>
+  <div *ngIf="!isOnline" class="connection-status_offline">
+    <span><i class="fas fa-exclamation-circle"></i> You are disconnected</span>
+  </div>
+</div>

@@ -1,25 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgxConnectionStatusService } from './services/ngx-connection-status.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'ngx-connection-status',
   templateUrl: './ngx-connection-status.component.html',
-  styles: []
+  styleUrls: ['./ngx-connection-status.component.css']
 })
-export class NgxConnectionStatusComponent implements OnInit {
+export class NgxConnectionStatusComponent implements OnInit, OnDestroy {
 
-  text: string;
+  isOnline: boolean =  true;
+  fresh: boolean = true;
+  subscription: Subscription;
 
   constructor(private cs: NgxConnectionStatusService) { }
 
   ngOnInit() {
-    this.cs.statusHook().subscribe(isOnline => {
+    this.subscription = this.cs.statusHook().subscribe(isOnline => {
       if (isOnline) {
-        this.text = 'online';
+        this.isOnline = true;
       } else {
-        this.text = 'offline';
+        this.isOnline = false;
+        this.fresh = false;
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }
