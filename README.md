@@ -49,7 +49,7 @@ To use it, simply add it in your HTML:
 
 `<ngx-connection-status></ngx-connection-status>`
 
-### Positioning:
+### Positioning
 
 You can also use the _`feedbackPosition`_ directive to give the component a fixed position at one of four possible options:
 
@@ -62,7 +62,7 @@ for example:
 
 `<ngx-connection-status [feedbackPosition]="'br'"></ngx-connection-status>`
 
-### FontAwesome Support:
+### FontAwesome Support
 
 If you are using [FontAwesome](https://www.fontawesome.com) (I don't know why you wouldn't be, It's awesome!) the component will add beautiful icons.
 
