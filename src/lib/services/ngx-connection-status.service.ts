@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable, Inject, isDevMode } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of, interval } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
@@ -13,6 +13,9 @@ export class NgxConnectionStatusService {
   private statusHook$: Observable<boolean>;
 
   constructor(@Inject(CONNECTION_STATUS_CONFIG) private config: ConnectionStatusConfig, private http: HttpClient) {
+    if (!config.checkInterval) {
+      config.checkInterval = 5000;
+    }
     this.initConnectionCheck(config.checkInterval);
   }
 
@@ -21,12 +24,21 @@ export class NgxConnectionStatusService {
       interval(_interval)
       .pipe(
         switchMap(() => {
-          return this.http.head<boolean>(`//${window.location.hostname}:${window.location.port}`)
-          .pipe(
-            map(() => {
-              return true;
-            }), catchError(this.handleError())
-          );
+          if (isDevMode()) {
+            return this.http.get<boolean>(`//${window.location.hostname}:${window.location.port}`)
+            .pipe(
+              map(() => {
+                return true;
+              }), catchError(this.handleError())
+            );
+          } else {
+            return this.http.head<boolean>(`//${window.location.hostname}:${window.location.port}`)
+            .pipe(
+              map(() => {
+                return true;
+              }), catchError(this.handleError())
+            );  
+          }
         })
       );
   }
